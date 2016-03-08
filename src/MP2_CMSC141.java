@@ -22,10 +22,7 @@ public class MP2_CMSC141 {
                     String input = sc.nextLine();
                     String s = mp2.checkGood(input, "*MLCR_*", 0); // input starts with all elements on the left of _
                     //System.out.println(input + " " +s);
-                    if (s=="OK"){
-                        count++;
-                        fw.append(input +" " + s + "\n");
-                    }
+                    fw.append(s + "\n");
             }
             System.out.println(count);
             fw.close();
@@ -60,8 +57,9 @@ public class MP2_CMSC141 {
                 if(across==1 && (currentVal.indexOf(curr)<currentVal.indexOf("_"))){ //check for errors (if item is at the correct side of bridge)
                     return "NG";
                 }
-                currentVal = currentVal.replace(curr, ""); // remove cur and move to correct new side of bridge
+                currentVal = currentVal.replace(curr, ""); // remove current item to be moved
                 currentVal = across==0?(currentVal.substring(0, currentVal.length()-1)+curr+"M*"):("*M"+curr+(currentVal.substring(1, currentVal.length())));                
+                // if it is across, move M along with current item to the opposit side.
             }
             return checkGood(input.substring(1), currentVal, across==1?0:1); // recursive checking
         }

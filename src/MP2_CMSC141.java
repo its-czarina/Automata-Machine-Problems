@@ -23,6 +23,7 @@ public class MP2_CMSC141 {
                     String s = mp2.checkGood(input, "*MLCR_*", 0); // input starts with all elements on the left of _
                     //System.out.println(input + " " +s);
                     fw.append(s + "\n");
+                    
             }
             System.out.println(count);
             fw.close();

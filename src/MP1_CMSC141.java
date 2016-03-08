@@ -75,11 +75,11 @@ public class MP1_CMSC141 {
 //            }
             try { 
                 mp.fw = new FileWriter("mp1.out");
-                mp.PC = 1;
-                mp.fw.append(mp.printValues(input) + "\n");
-                while (mp.PC < code.length){
-                    input = mp.execute(code, indexes, input);
-                    mp.fw.append(mp.printValues(input) + "\n");
+                mp.PC = 1; //initialize program counter to 1
+                mp.fw.append(mp.printValues(input) + "\n"); // initially print first data
+                while (mp.PC < code.length){ 
+                    input = mp.execute(code, indexes, input); 
+                    mp.fw.append(mp.printValues(input) + "\n"); // append to file
                 }
                 mp.fw.close();
             } catch (IOException ex) {
@@ -106,22 +106,24 @@ public class MP1_CMSC141 {
     }
     
     public int[] execute(char[] code, int[][] indexes, int[] values) throws IOException{
+        // code = contains the character code information (S, Z, C, J)
+        // indexes = contains the index pertaining to the character code - ex. line 4 - S 3 so index[4][0] = 3
+        // values = the values inside the registers
+        
         if (code[PC] == 'S'){
-            values[indexes[PC][0]]++;
+            values[indexes[PC][0]]++;  // get the corresponding value from 'indexes' in the same index as the 'code'
             PC++;
         }
         else if (code[PC] == 'Z'){
-            values[indexes[PC][0]]=0;
+            values[indexes[PC][0]]=0; 
             PC++;
         }
-        else if (code[PC] == 'C'){
-            int temp = values[indexes[PC][0]];
-            values[indexes[PC][0]] = values[indexes[PC][1]];
-            values[indexes[PC][1]] = temp;
+        else if (code[PC] == 'C'){ //code to copy values
+            values[indexes[PC][1]] = values[indexes[PC][0]];
             PC++;
         }
         else if (code[PC] == 'J'){
-            if (values[indexes[PC][0]] == values[indexes[PC][1]]){
+            if (values[indexes[PC][0]] == values[indexes[PC][1]]){ 
                 PC = indexes[PC][2];
             }
             else{

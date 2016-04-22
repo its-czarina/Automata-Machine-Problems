@@ -17,7 +17,6 @@ public class Rule30 {
     public static void main(String args[]){
         Rule30 program = new Rule30();
         program.toRule30(program.retrieveInput());
-        
     }
     
     public void print(int[] output){
@@ -28,8 +27,8 @@ public class Rule30 {
     
     public void toRule30(String[] input){
         int generations = Integer.parseInt(input[0]);
-        input[1] = input[1].replace(" ", "");
-        int columns = input[1].length();
+        input[1] = input[1].replace(" ", "");//remove unwanted spaces
+        int columns = input[1].length(); //get length of string
         
         int[] output = new int[columns];
         for (int i = 0; i < output.length;i++){
@@ -43,7 +42,7 @@ public class Rule30 {
                 int p = Integer.parseInt(""+test[j]);
                 int q = Integer.parseInt(""+test[j+1]);
                 int r = Integer.parseInt(""+test[j+2]);
-                output[j] = ((p + q + r + (q*r))%2);
+                output[j] = ((p + q + r + (q*r))%2); // formula to get the equivalent tile
             }
             print(output);
         }
@@ -62,9 +61,9 @@ public class Rule30 {
 
     private int[] getLine(int[] output) {
         int[] values = new int[(output.length) + 2];
-        values[0] = output[output.length-1];
+        values[0] = output[output.length-1]; // add the last item to the first part of the array (wrapped)
         System.arraycopy(output, 0, values, 1, output.length);
-        values[output.length+1] = output[0];
+        values[output.length+1] = output[0]; // first item repeated on the last of the array (wrapped)
         return values;
     }
     
